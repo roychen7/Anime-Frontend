@@ -28,9 +28,18 @@ function submitForm() {
 
   if (table && field && (filter_val || filter_name)) {
     // call /select/cond/proj
+    axios.get('http://localhost:3005/select/cond/proj?table=' + table + '&field=' + field + '&filter_field=' + filter_name + '&filter_val=' + filter_val).then((response) => {
+      console.log(response);
+    })
   } else if (table && field) {
+    axios.get('http://localhost:3005/select/projection?table=' + table + '&field=' + field).then((response) => {
+      console.log(response);
+    })
     // call /select/projection
   } else if (table && (filter_val || filter_name)) {
+    axios.get('http://localhost:3005/select/condition?table=' + table + '&field=' + filter_name + '&condition=' + filter_val).then((response) => {
+      console.log(response);
+    })
     // call /select/condition
   } else if (table) {
     // call /select 
