@@ -24,7 +24,7 @@ function submitForm() {
   const filter_val = document.getElementById("filter_by_val").value;
 
   if (filter_val || filter_name) {
-    if (!filter_val || filter_name) {
+    if (!filter_val || !filter_name) {
       return;
     }
   }
@@ -50,7 +50,7 @@ function submitForm() {
       console.log(response);
     })
   }
-  console.log(table, field);
+  console.log(table, field, filter_name, filter_val);
 }
 
 function getCount() {
@@ -134,13 +134,32 @@ function MyTable() {
 }
 
 
+function submitInsert() {
+  const table = document.getElementById("table-insert").value;
+  let values = document.getElementById("insert-vals").value;
+  values = values.split(',');
+
+  axios({
+    method: 'post',
+    url: 'http://localhost:3005/insert',
+    headers: {},
+    data: {
+      table: table,
+      data: values,
+    }
+  }).then((response) => {
+    console.log(response);
+  })
+}
 function InsertProp() {
   return (
     <div id="insert">
       <label for="table-insert"> Insert into: </label>
       <input type="text" id="table-insert" name="table-insert"/>
-      <label for="insert-vals"> Input insert values here: </label>
+      <label for="insert-vals"> Insert values: </label>
       <input type="text" id="insert-vals" name="insert-vals"/>
+      <br></br>
+      <button onClick={submitInsert}> Submit </button>
     </div>
   )
 }
