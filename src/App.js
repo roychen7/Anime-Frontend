@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import axios from 'axios';
 
+import { Table, TableHead, TableCell, TableRow, TableBody, Checkbox} from '@material-ui/core';
 import './App.css';
 
 function App() {
@@ -9,6 +10,8 @@ function App() {
     <div className="App" style={{display: 'flex'}}>
       <SelectProp />
       <div style={{marginLeft: '500px'}}> <InsertProp/> </div>
+      <br></br>
+      <br></br>
     </div>
   );
 }
@@ -85,7 +88,48 @@ function SelectProp() {
         <button onClick={getCountForStudio}> Get Count For Studios </button>
         <br></br>
         <button onClick={getSingerNames}> Get Singer Names</button>
+        <br></br>
+        <br></br>
+        <br></br>
+        <MyTable/>
       </div>
+  )
+}
+
+var headers=["Name", "Anime", "Something", "Euphoria"];
+var data = [{"Name": "pickle rick", "Anime":" Rick and morty", "Something":"Yes", "Euphoria":"Pogs"},
+{"Name": "pickle rick", "Anime":" Rick and morty", "Something":"Yes", "Euphoria":"Pogs"}];
+
+function MyTable() {
+  return (
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableCell></TableCell>
+          {headers.map(a => <TableCell>{a}</TableCell>)}
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {data.map((obj, index) => {
+          return (
+            <React.Fragment>
+              <TableRow role="checkbox">
+                <TableCell padding="checkbox">
+                            <Checkbox
+                              checked={true}
+                            />
+                </TableCell>
+                {headers.map((header, cellIndex) => {
+                  return (
+                  <TableCell>{obj[header]}</TableCell>
+                  )
+                })}
+              </TableRow>
+            </React.Fragment>
+          );
+        })}
+      </TableBody>
+    </Table>
   )
 }
 
@@ -100,4 +144,5 @@ function InsertProp() {
     </div>
   )
 }
+
 export default App;
